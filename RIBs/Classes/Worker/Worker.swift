@@ -28,7 +28,7 @@ public protocol Working: AnyObject {
   /// will start when its bound `Interactor` scope becomes active.
   ///
   /// - parameter interactorScope: The interactor scope this worker is bound to.
-  func start(_ interactorScope: InteractorScope)
+  func start(_ interactorScope: any InteractorScope)
 
   /// Stops the worker.
   ///
@@ -74,7 +74,7 @@ open class Worker: Working {
   /// will start when its bound `Interactor` scope becomes active.
   ///
   /// - parameter interactorScope: The interactor scope this worker is bound to.
-  public final func start(_ interactorScope: InteractorScope) {
+  public final func start(_ interactorScope: any InteractorScope) {
     guard !isStarted else {
       return
     }
@@ -96,7 +96,7 @@ open class Worker: Working {
   /// starts. The default implementation does nothing.
   ///
   /// - parameter interactorScope: The interactor scope this `Worker` is bound to.
-  open func didStart(_: InteractorScope) {}
+  open func didStart(_: any InteractorScope) {}
 
   /// Stops the worker.
   ///
@@ -126,9 +126,9 @@ open class Worker: Working {
 
   private let isStartedSubject = BehaviorSubject<Bool>(value: false)
   fileprivate var disposable: CompositeDisposable?
-  private var interactorBindingDisposable: Disposable?
+  private var interactorBindingDisposable: (any Disposable)?
 
-  private func bind(to interactorScope: InteractorScope) {
+  private func bind(to interactorScope: any InteractorScope) {
     unbindInteractor()
 
     interactorBindingDisposable = interactorScope.isActiveStream
@@ -143,7 +143,7 @@ open class Worker: Working {
       })
   }
 
-  private func executeStart(_ interactorScope: InteractorScope) {
+  private func executeStart(_ interactorScope: any InteractorScope) {
     disposable = CompositeDisposable()
     didStart(interactorScope)
   }
@@ -184,7 +184,7 @@ extension Disposable {
   ///
   /// - parameter worker: The `Worker` to dispose the subscription based on.
   @discardableResult
-  public func disposeOnStop(_ worker: Worker) -> Disposable {
+  public func disposeOnStop(_ worker: Worker) -> any Disposable {
     if let compositeDisposable = worker.disposable {
       _ = compositeDisposable.insert(self)
     } else {
@@ -196,7 +196,7 @@ extension Disposable {
 }
 
 fileprivate class WeakInteractorScope: InteractorScope {
-  weak var sourceScope: InteractorScope?
+  weak var sourceScope: (any InteractorScope)?
 
   var isActive: Bool {
     sourceScope?.isActive ?? false
@@ -206,7 +206,7 @@ fileprivate class WeakInteractorScope: InteractorScope {
     sourceScope?.isActiveStream ?? Observable.just(false)
   }
 
-  fileprivate init(sourceScope: InteractorScope) {
+  fileprivate init(sourceScope: any InteractorScope) {
     self.sourceScope = sourceScope
   }
 }

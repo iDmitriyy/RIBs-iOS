@@ -18,7 +18,7 @@ import UIKit
 public import class UIKit.UIWindow
 
 /// The root `Router` of an application.
-public protocol LaunchRouting: ViewableRouting {
+@MainActor public protocol LaunchRouting: ViewableRouting {
   /// Launches the router tree.
   ///
   /// - parameter window: The application window to launch from.

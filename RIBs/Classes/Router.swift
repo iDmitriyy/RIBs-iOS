@@ -24,7 +24,7 @@ public enum RouterLifecycle {
 }
 
 /// The scope of a `Router`, defining various lifecycles of a `Router`.
-public protocol RouterScope: AnyObject {
+@MainActor public protocol RouterScope: AnyObject {
   /// An observable that emits values when the router scope reaches its corresponding life-cycle stages. This
   /// observable completes when the router scope is deallocated.
   var lifecycle: Observable<RouterLifecycle> { get }
@@ -127,7 +127,7 @@ open class Router<InteractorType>: Routing {
   /// Attaches the given router as a child.
   ///
   /// - parameter child: The child `Router` to attach.
-  public final func attachChild(_ child: Routing) {
+  public final func attachChild(_ child: any Routing) {
     assert(!(children.contains { $0 === child }), "Attempt to attach child: \(child), which is already attached to \(self).")
 
     children.append(child)
@@ -141,7 +141,7 @@ open class Router<InteractorType>: Routing {
   /// Detaches the given `Router` from the tree.
   ///
   /// - parameter child: The child `Router` to detach.
-  public final func detachChild(_ child: Routing) {
+  public final func detachChild(_ child: any Routing) {
     child.interactable.deactivate()
 
     children.removeElementByReference(child)
@@ -191,7 +191,7 @@ open class Router<InteractorType>: Routing {
     }
   }
 
-  private func iterateSubtree(_ root: Routing, closure: (_ node: Routing) -> ()) {
+  private func iterateSubtree(_ root: any Routing, closure: (_ node: any Routing) -> ()) {
     closure(root)
 
     for child in root.children {
@@ -206,16 +206,17 @@ open class Router<InteractorType>: Routing {
   }
 
   deinit {
-    interactable.deactivate()
-
-    if !children.isEmpty {
-      detachAllChildren()
-    }
-
-    lifecycleSubject.onCompleted()
-
-    deinitDisposable.dispose()
-
-    LeakDetector.instance.expectDeallocate(object: interactable)
+    // TODO: - .
+//    interactable.deactivate()
+//
+//    if !children.isEmpty {
+//      detachAllChildren()
+//    }
+//
+//    lifecycleSubject.onCompleted()
+//
+//    deinitDisposable.dispose()
+//
+//    LeakDetector.instance.expectDeallocate(object: interactable)
   }
 }

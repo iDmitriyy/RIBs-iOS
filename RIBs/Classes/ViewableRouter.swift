@@ -24,7 +24,7 @@ public protocol ViewableRouting: Routing {
   // base class logic without error.
 
   /// The base view controllable associated with this `Router`.
-  var viewControllable: ViewControllable { get }
+  var viewControllable: any ViewControllable { get }
 }
 
 /// The base class of all routers that owns view controllers, representing application states.
@@ -37,7 +37,7 @@ open class ViewableRouter<InteractorType, ViewControllerType>: Router<Interactor
   public let viewController: ViewControllerType
 
   /// The base `ViewControllable` associated with this `Router`.
-  public let viewControllable: ViewControllable
+  public let viewControllable: any ViewControllable
 
   /// Initializer.
   ///
@@ -45,8 +45,8 @@ open class ViewableRouter<InteractorType, ViewControllerType>: Router<Interactor
   /// - parameter viewController: The corresponding `ViewController` of this `Router`.
   public init(interactor: InteractorType, viewController: ViewControllerType) {
     self.viewController = viewController
-    guard let viewControllable = viewController as? ViewControllable else {
-      fatalError("\(viewController) should conform to \(ViewControllable.self)")
+    guard let viewControllable = viewController as? (any ViewControllable) else {
+      fatalError("\(viewController) should conform to \((any ViewControllable).self)")
     }
     self.viewControllable = viewControllable
 
@@ -63,7 +63,7 @@ open class ViewableRouter<InteractorType, ViewControllerType>: Router<Interactor
 
   // MARK: - Private
 
-  private var viewControllerDisappearExpectation: LeakDetectionHandle?
+  private var viewControllerDisappearExpectation: (any LeakDetectionHandle)?
 
   private func setupViewControllerLeakDetection() {
     let disposable = interactable.isActiveStream
@@ -88,6 +88,7 @@ open class ViewableRouter<InteractorType, ViewControllerType>: Router<Interactor
   }
 
   deinit {
-    LeakDetector.instance.expectDeallocate(object: viewControllable.uiviewController, inTime: LeakDefaultExpectationTime.viewDisappear)
+    // TODO: - uncomment
+//    LeakDetector.instance.expectDeallocate(object: viewControllable.uiviewController, inTime: LeakDefaultExpectationTime.viewDisappear)
   }
 }

@@ -14,6 +14,9 @@
 //  limitations under the License.
 //
 
+public import class RxSwift.Observable
+public import typealias Foundation.TimeInterval
+public import class UIKit.UIViewController
 import RxRelay
 import RxSwift
 import UIKit
@@ -48,7 +51,7 @@ public protocol LeakDetectionHandle {
 /// A `Router` that owns an `Interactor` might for example expect its `Interactor` be deallocated when the `Router`
 /// itself is deallocated. If the interactor does not deallocate in time, a runtime assert is triggered, along with
 /// critical logging.
-public class LeakDetector {
+@MainActor public class LeakDetector {
   /// The singleton instance.
   public static let instance = LeakDetector()
 
@@ -71,7 +74,8 @@ public class LeakDetector {
   /// - parameter inTime: The time the given object is expected to be deallocated within.
   /// - returns: The handle that can be used to cancel the expectation.
   @discardableResult
-  public func expectDeallocate(object: AnyObject, inTime time: TimeInterval = LeakDefaultExpectationTime.deallocation) -> LeakDetectionHandle {
+  public func expectDeallocate(object: AnyObject,
+                               inTime time: TimeInterval = LeakDefaultExpectationTime.deallocation) -> any LeakDetectionHandle {
     expectationCount.accept(expectationCount.value + 1)
 
     let objectDescription = String(describing: object)
@@ -111,7 +115,7 @@ public class LeakDetector {
   /// - parameter inTime: The time the given view controller is expected to disappear.
   /// - returns: The handle that can be used to cancel the expectation.
   @discardableResult
-  public func expectViewControllerDisappear(viewController: UIViewController, inTime time: TimeInterval = LeakDefaultExpectationTime.viewDisappear) -> LeakDetectionHandle {
+  public func expectViewControllerDisappear(viewController: UIViewController, inTime time: TimeInterval = LeakDefaultExpectationTime.viewDisappear) -> any LeakDetectionHandle {
     expectationCount.accept(expectationCount.value + 1)
 
     let handle = LeakDetectionHandleImpl {

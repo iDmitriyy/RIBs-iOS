@@ -28,6 +28,7 @@ for target: PackageDescription.Target in package.targets {
     settings.append(.enableUpcomingFeature("ExistentialAny"))
     settings.append(.enableUpcomingFeature("InternalImportsByDefault"))
     settings.append(.enableUpcomingFeature("MemberImportVisibility"))
+//    settings.append(.enableExperimentalFeature("IsolatedDeinit")) // enableExperimentalFeature
     $0 = settings
   }(&target.swiftSettings)
 }

@@ -160,7 +160,7 @@ extension ObservableType {
   /// - parameter interactorScope: The interactor scope whose activeness this observable is confined to.
   /// - returns: The `Observable` confined to this interactor's activeness lifecycle.
 
-  public func confineTo(_ interactorScope: InteractorScope) -> Observable<Element> {
+  public func confineTo(_ interactorScope: any InteractorScope) -> Observable<Element> {
     Observable
       .combineLatest(interactorScope.isActiveStream, self) { isActive, value in
         (isActive, value)
@@ -191,7 +191,7 @@ extension Disposable {
   ///
   /// - parameter interactor: The interactor to dispose the subscription based on.
   @discardableResult
-  public func disposeOnDeactivate(interactor: Interactor) -> Disposable {
+  public func disposeOnDeactivate(interactor: Interactor) -> any Disposable {
     if let activenessDisposable = interactor.activenessDisposable {
       _ = activenessDisposable.insert(self)
     } else {

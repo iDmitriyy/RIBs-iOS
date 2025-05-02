@@ -45,7 +45,7 @@ open class Workflow<ActionableItemType> {
   ///
   /// Subclasses should override this method if they want to execute logic at this point in the `Workflow` lifecycle.
   /// The default implementation does nothing.
-  open func didReceiveError(_: Error) {
+  open func didReceiveError(_: any Error) {
     // No-op
   }
 
@@ -122,7 +122,7 @@ open class Step<WorkflowActionableItemType, ActionableItemType, ValueType> {
       .flatMapLatest { actionableItem, value -> Observable<(Bool, ActionableItemType, ValueType)> in
         // We cannot use generic constraint here since Swift requires constraints be
         // satisfied by concrete types, preventing using protocol as actionable type.
-        if let interactor = actionableItem as? Interactable {
+        if let interactor = actionableItem as? any Interactable {
           return interactor
             .isActiveStream
             .map { (isActive: Bool) -> (Bool, ActionableItemType, ValueType) in
@@ -149,7 +149,7 @@ open class Step<WorkflowActionableItemType, ActionableItemType, ValueType> {
   ///
   /// - parameter onError: The closure to execute when an error occurs.
   /// - returns: This step.
-  public final func onError(_ onError: @escaping ((Error) -> ())) -> Step<WorkflowActionableItemType, ActionableItemType, ValueType> {
+  public final func onError(_ onError: @escaping ((any Error) -> ())) -> Step<WorkflowActionableItemType, ActionableItemType, ValueType> {
     observable = observable.do(onError: onError)
     return self
   }
