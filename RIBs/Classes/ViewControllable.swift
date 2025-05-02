@@ -14,18 +14,16 @@
 //  limitations under the License.
 //
 
-import UIKit
+public import class UIKit.UIViewController
 
 /// Basic interface between a `Router` and the UIKit `UIViewController`.
 public protocol ViewControllable: AnyObject {
-
-    var uiviewController: UIViewController { get }
+  var uiviewController: UIViewController { get }
 }
 
 /// Default implementation on `UIViewController` to conform to `ViewControllable` protocol
-public extension ViewControllable where Self: UIViewController {
-
-    var uiviewController: UIViewController {
-        return self
-    }
+extension ViewControllable where Self: UIViewController {
+  public var uiviewController: UIViewController {
+    self
+  }
 }

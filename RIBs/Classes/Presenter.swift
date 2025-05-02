@@ -23,14 +23,13 @@ public protocol Presentable: AnyObject {}
 /// `ViewController` can consume and display. It also maps UI events to business logic method, invoked to
 /// its listener.
 open class Presenter<ViewControllerType>: Presentable {
+  /// The view controller of this presenter.
+  public let viewController: ViewControllerType
 
-    /// The view controller of this presenter.
-    public let viewController: ViewControllerType
-
-    /// Initializer.
-    ///
-    /// - parameter viewController: The `ViewController` of this `Pesenters`.
-    public init(viewController: ViewControllerType) {
-        self.viewController = viewController
-    }
+  /// Initializer.
+  ///
+  /// - parameter viewController: The `ViewController` of this `Pesenters`.
+  public init(viewController: ViewControllerType) {
+    self.viewController = viewController
+  }
 }
