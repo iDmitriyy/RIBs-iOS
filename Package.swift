@@ -15,7 +15,9 @@ let package = Package(
   ],
   targets: [
     .target(name: "RIBs",
-            dependencies: [.product(name: "RxRelay", package: "rxswift"), .product(name: "RxSwift", package: "rxswift")],
+            dependencies: [.product(name: "RxRelay", package: "rxswift"),
+              .product(name: "RxSwift", package: "rxswift"),
+                           .product(name: "RxCocoa", package: "rxswift")],
             path: "RIBs"),
     .testTarget(name: "RIBsTests", dependencies: ["RIBs", "CwlPreconditionTesting"], path: "RIBsTests"),
   ],
