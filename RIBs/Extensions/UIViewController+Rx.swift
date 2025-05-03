@@ -10,6 +10,7 @@ public import class UIKit.UIViewController
 import RxSwift
 import UIKit
 
+@MainActor
 public protocol ViewControllerLifeCycleObservable: AnyObject {
   var viewDidLoadEvent: ControlEvent<Void> { get }
   var viewWillAppearEvent: ControlEvent<Void> { get }
@@ -75,10 +76,10 @@ extension Reactive where Base: UIViewController {
 }
 
 // TODO: - .
-//extension UIViewController: ViewControllerLifeCycleObservable {
-//  public var viewDidLoadEvent: ControlEvent<Void> { rx.viewDidLoad }
-//  public var viewWillAppearEvent: ControlEvent<Void> { rx.viewWillAppear }
-//  public var viewDidAppearEvent: ControlEvent<Void> { rx.viewDidAppear }
-//  public var viewWillDisappearEvent: ControlEvent<Void> { rx.viewWillDisappear }
-//  public var viewDidDisappearEvent: ControlEvent<Void> { rx.viewDidDisappear }
-//}
+extension UIViewController: ViewControllerLifeCycleObservable {
+  public var viewDidLoadEvent: ControlEvent<Void> { rx.viewDidLoad }
+  public var viewWillAppearEvent: ControlEvent<Void> { rx.viewWillAppear }
+  public var viewDidAppearEvent: ControlEvent<Void> { rx.viewDidAppear }
+  public var viewWillDisappearEvent: ControlEvent<Void> { rx.viewWillDisappear }
+  public var viewDidDisappearEvent: ControlEvent<Void> { rx.viewDidDisappear }
+}

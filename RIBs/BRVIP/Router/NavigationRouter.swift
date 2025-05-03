@@ -8,6 +8,7 @@
 public import class UIKit.UINavigationController
 import class UIKit.UIViewController
 import class UIKit.UIWindow
+import struct SwiftyKit.ErrorInfo
 
 open class RootNavigationRouter<InteractorType, ViewControllerType, RouteType: RouteProtocol>: ViewableRouter
 <InteractorType, ViewControllerType, NavigationTransition, RouteType>, NavigationRouting {
