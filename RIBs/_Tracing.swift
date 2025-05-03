@@ -27,3 +27,8 @@ public struct Tracing: Sendable {
     logError_(error, file, line)
   }
 }
+
+import os
+
+internal let _tracing = OSAllocatedUnfairLock(initialState: Tracing(logError: { _, _, _ in },
+                                                                    assertError: { _, _, _ in }))
