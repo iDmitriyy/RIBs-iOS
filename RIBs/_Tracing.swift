@@ -13,6 +13,8 @@ public struct Tracing: Sendable {
        assertError: @Sendable @escaping (any Error, _ file: StaticString, _ line: UInt) -> Void) {
     logError_ = logError
     assertError_ = assertError
+    // +
+    // leakDetected
   }
   
   internal func assertionFailure(error: any Error, file: StaticString = #file, line: UInt = #line) {

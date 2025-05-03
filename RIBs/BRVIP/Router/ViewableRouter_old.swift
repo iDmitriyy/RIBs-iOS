@@ -14,6 +14,7 @@
 //  limitations under the License.
 //
 
+/*
 import RxSwift
 
 /// The base protocol for all routers that own their own view controllers.
@@ -92,3 +93,5 @@ open class ViewableRouter<InteractorType, ViewControllerType>: Router<Interactor
 //    LeakDetector.instance.expectDeallocate(object: viewControllable.uiviewController, inTime: LeakDefaultExpectationTime.viewDisappear)
   }
 }
+
+*/
