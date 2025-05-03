@@ -60,6 +60,7 @@ public protocol RouterTransition {}
 
 // MARK: - TransitionPerformer
 
+@MainActor
 protocol TransitionPerformer: AnyObject {
   associatedtype TransitionType: RouterTransition
   
@@ -72,6 +73,7 @@ public protocol RouteProtocol {}
 
 // MARK: - Routable
 
+@MainActor
 public protocol Routable: AnyObject {
   associatedtype RouteType: RouteProtocol
   
@@ -196,7 +198,7 @@ open class ViewableRouter<InteractorType, ViewControllerType, TransitionType: Ro
 // MARK: - Embed (композиция экранов)
 
 extension ViewableRouter {
-  public func embed(_ router: any ViewableRouting, in container: any Container, completion: RouteCompletion?) {
+  public func embed(_ router: any ViewableRouting, in container: any EmbedingContainer, completion: RouteCompletion?) {
     attachChild(router)
     
     // 📝 @iDmitriyy

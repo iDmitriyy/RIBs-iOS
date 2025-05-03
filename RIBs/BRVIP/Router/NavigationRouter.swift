@@ -184,7 +184,6 @@ open class NavigationControllerRouter<InteractorType, ViewControllerType, RouteT
 // MARK: - NavigationTransition
 
 public enum NavigationTransition: RouterTransition {
-  // 📝 @levkachev
   // TODO: - заменить ViewableRouting на NavigationRouting для применения ограничений
   // - нужны 2 разных роутера:
   // 1. для экранов которые лежат в Navigation стеке

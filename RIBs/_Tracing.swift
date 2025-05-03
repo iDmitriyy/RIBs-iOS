@@ -32,5 +32,11 @@ public struct Tracing: Sendable {
 
 import os
 
+internal var tracing: Tracing { fatalError() }
+
 internal let _tracing = OSAllocatedUnfairLock(initialState: Tracing(logError: { _, _, _ in },
                                                                     assertError: { _, _, _ in }))
+
+struct TextError {
+  
+}

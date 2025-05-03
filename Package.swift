@@ -11,13 +11,15 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/ReactiveX/RxSwift", .upToNextMinor(from: "6.5.0")),
+    .package(url: "https://github.com/iDmitriyy/SwiftyKit.git", branch: "main"),
     .package(url: "https://github.com/mattgallagher/CwlPreconditionTesting.git", .upToNextMinor(from: "2.2.2")), // for testTarget only
   ],
   targets: [
     .target(name: "RIBs",
             dependencies: [.product(name: "RxRelay", package: "rxswift"),
                            .product(name: "RxSwift", package: "rxswift"),
-                           .product(name: "RxCocoa", package: "rxswift")],
+                           .product(name: "RxCocoa", package: "rxswift"),
+                           .product(name: "SwiftyKit", package: "SwiftyKit")],
             path: "RIBs"),
     .testTarget(name: "RIBsTests", dependencies: ["RIBs", "CwlPreconditionTesting"], path: "RIBsTests"),
   ],
