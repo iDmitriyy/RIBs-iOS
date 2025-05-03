@@ -124,7 +124,8 @@ open class ViewableRouter<InteractorType, ViewControllerType, TransitionType: Ro
                                   delegate: (any SFSafariViewControllerDelegate)? = nil) {
     DispatchQueue.main.async { [weak self] in
       guard UIApplication.shared.canOpenURL(url) else {
-        return logError(AppLinkError(errorCode: .cantOpenURL, url: url))
+        tracing.logError(TextError(text: "Can't open URL \(url)"))
+        return
       }
       
       let safari = SFSafariViewController(url: url)
@@ -137,7 +138,10 @@ open class ViewableRouter<InteractorType, ViewControllerType, TransitionType: Ro
   
   public func trigger(_ route: RouteType, completion: @escaping RouteCompletion) {
     DispatchQueue.main.async { [weak self] in
-      guard let self else { return assertionFailure(error: ConditionalError(code: .unexpectedCodeEntrance)) }
+      guard let self else {
+        tracing.logError(TextError(text: "Unexpected deinit of \(Self.self) for route \(route)"))
+        return
+      }
       
       let transition = self.prepareTransition(for: route)
       self.perform(transition: transition, completion: completion)

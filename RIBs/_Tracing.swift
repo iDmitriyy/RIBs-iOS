@@ -37,6 +37,25 @@ internal var tracing: Tracing { fatalError() }
 internal let _tracing = OSAllocatedUnfairLock(initialState: Tracing(logError: { _, _, _ in },
                                                                     assertError: { _, _, _ in }))
 
-struct TextError {
+import struct SwiftyKit.StaticFileLine
+
+internal struct TextError: Error, CustomStringConvertible, CustomDebugStringConvertible {
+  public var description: String { text }
+  public var debugDescription: String { text }
   
+  package let text: String
+  package let source: StaticFileLine
+  
+  public init(text: String, source: StaticFileLine = .this()) {
+    self.text = text
+    self.source = source
+  }
 }
+
+//@_spi(SwiftyKitBuiltinTypes) import SwiftyKit
+//
+//internal typealias TextError = SwiftyKit.TextError
+
+//struct TextError {
+//  
+//}
