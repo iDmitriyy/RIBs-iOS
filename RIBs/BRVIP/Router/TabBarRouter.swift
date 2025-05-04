@@ -68,8 +68,7 @@ open class TabBarRouter<InteractorType, ViewControllerType, RouteType: RouteProt
   /// в которой находится, автоматически вызывается popToRootViewController(:) у рутового UINavigationController
   /// код ниже автоматически детачит все дочерние роутеры при таком кейсе
   public func willSelect(viewController: UIViewController) {
-    guard
-      tabBarController.selectedViewController == viewController,
+    guard tabBarController.selectedViewController == viewController,
       let navigationController: UINavigationController = viewController as? UINavigationController,
       let first: UIViewController = navigationController.viewControllers.first else { return }
     findRouter(for: first)?.detachAllChildren()

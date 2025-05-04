@@ -61,6 +61,17 @@ public protocol Routing: RouterScope {
   ///
   /// - parameter child: The child router to detach.
   func detachChild(_ child: any Routing)
+  
+  // Additional (not done in original RIBs):
+  
+  /// Детачит все дочерние роутеры
+  func detachAllChildren()
+  
+  /// Сигнализирует о начале детача из родительского роутера
+  func willDetachFromParent()
+  
+  /// Сигнализирует о детаче из родительского роутера
+  func didDetachFromParent()
 }
 
 /// The base class of all routers that does not own view controllers, representing application states.
