@@ -7,6 +7,8 @@
 
 public import class UIKit.UIWindow
 import UIKit
+import SwiftyKit
+import CommonErrorsPack
 
 // https://medium.com/flawless-app-stories/exploring-view-hierarchy-332ea63262e9
 extension UIWindow {
@@ -51,31 +53,31 @@ extension UIWindow {
 }
 
 // TODO: - .
-//extension UIWindow {
-//  /// - Returns: все вью контроллеры, находящиеся в стеке keyWindow в момент вызова
-//  static func vcsHierarchyDebugDescription() -> String {
-//    var vcsHierarchyDescriptionStrings = [String]()
-//    
-//    let maybeWindow = (UIApplication.shared.delegate?.window).flattened()
-//    maybeWindow?.traverseHierarchy { responder, _ in
-//      if responder is UIViewController {
-//        vcsHierarchyDescriptionStrings.append(String(describing: type(of: responder)))
-//      }
-//    }
-//    
-//    return vcsHierarchyDescriptionStrings.joined(separator: "->")
-//  }
-//  
-//  public static var keyWindow: UIWindow {
-//    // UIAplication -> UIWindowScene -> UIWindow -> rootViewController
-//    let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-//    let keyWindow = scene?.windows.first(where: { $0.isKeyWindow })
-//
-//    guard let keyWindow else {
-//      assertionFailure(error: ConditionalError(code: .unexpectedNilObject))
-//      return UIWindow()
-//    }
-//
-//    return keyWindow
-//  }
-//}
+extension UIWindow {
+  /// - Returns: все вью контроллеры, находящиеся в стеке keyWindow в момент вызова
+  static func vcsHierarchyDebugDescription() -> String {
+    var vcsHierarchyDescriptionStrings = [String]()
+    
+    let maybeWindow = (UIApplication.shared.delegate?.window).flattened()
+    maybeWindow?.traverseHierarchy { responder, _ in
+      if responder is UIViewController {
+        vcsHierarchyDescriptionStrings.append(String(describing: type(of: responder)))
+      }
+    }
+    
+    return vcsHierarchyDescriptionStrings.joined(separator: "->")
+  }
+  
+  public static var keyWindow: UIWindow {
+    // UIAplication -> UIWindowScene -> UIWindow -> rootViewController
+    let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+    let keyWindow = scene?.windows.first(where: { $0.isKeyWindow })
+
+    guard let keyWindow else {
+      tracing.assertionFailure(error: ConditionalError(code: .unexpectedNilObject))
+      return UIWindow()
+    }
+
+    return keyWindow
+  }
+}

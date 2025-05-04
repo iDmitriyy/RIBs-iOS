@@ -1,5 +1,5 @@
 {
-  "originHash" : "2d1f3e95b3562c0b1932a20fcff19af4246e19a6aa6d8d9e5864ffcb2a45b25e",
+  "originHash" : "a65e4db9435f554d634048f2cffe28f1fc099baa7bc12ff50da1dfb4b361f90e",
   "pins" : [
     {
       "identity" : "cwlcatchexception",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "0139c665ebb45e6a9fbdb68aabfd7c39f3fe0071",
         "version" : "2.2.2"
+      }
+    },
+    {
+      "identity" : "errorssuite",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/iDmitriyy/ErrorsSuite.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "50adae84bbc08456c9926b1b1a68f67c88860331"
       }
     },
     {
@@ -70,7 +79,7 @@
       "location" : "https://github.com/iDmitriyy/SwiftyKit.git",
       "state" : {
         "branch" : "main",
-        "revision" : "c868f249ccf53db8e8a570d1d80f6fa4e8c6546a"
+        "revision" : "1cf88ad8687ea4c98a6485d48daf26dd66bb3106"
       }
     }
   ],

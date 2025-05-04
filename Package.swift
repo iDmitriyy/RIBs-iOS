@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
   name: "RIBs",
   platforms: [
-    .iOS(.v16),
+    .iOS(.v17),
   ],
   products: [
     .library(name: "RIBs", targets: ["RIBs"]),
@@ -12,6 +12,7 @@ let package = Package(
   dependencies: [
     .package(url: "https://github.com/ReactiveX/RxSwift", .upToNextMinor(from: "6.5.0")),
     .package(url: "https://github.com/iDmitriyy/SwiftyKit.git", branch: "main"),
+    .package(url: "https://github.com/iDmitriyy/ErrorsSuite.git", branch: "main"),
     .package(url: "https://github.com/mattgallagher/CwlPreconditionTesting.git", .upToNextMinor(from: "2.2.2")), // for testTarget only
   ],
   targets: [
@@ -19,7 +20,8 @@ let package = Package(
             dependencies: [.product(name: "RxRelay", package: "rxswift"),
                            .product(name: "RxSwift", package: "rxswift"),
                            .product(name: "RxCocoa", package: "rxswift"),
-                           .product(name: "SwiftyKit", package: "SwiftyKit")],
+                           .product(name: "SwiftyKit", package: "SwiftyKit"),
+                           .product(name: "CommonErrorsPack", package: "ErrorsSuite")],
             path: "RIBs"),
     .testTarget(name: "RIBsTests", dependencies: ["RIBs", "CwlPreconditionTesting"], path: "RIBsTests"),
   ],

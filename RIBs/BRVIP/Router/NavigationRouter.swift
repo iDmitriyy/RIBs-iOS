@@ -9,6 +9,7 @@ public import class UIKit.UINavigationController
 import class UIKit.UIViewController
 import class UIKit.UIWindow
 import struct SwiftyKit.ErrorInfo
+private import CommonErrorsPack
 
 open class RootNavigationRouter<InteractorType, ViewControllerType, RouteType: RouteProtocol>: ViewableRouter
 <InteractorType, ViewControllerType, NavigationTransition, RouteType>, NavigationRouting {
@@ -29,7 +30,7 @@ open class RootNavigationRouter<InteractorType, ViewControllerType, RouteType: R
         let errorInfo: ErrorInfo = ["message": message,
                                     "RIBs tree": "\(hierarchyDebugDescription)",
                                     "ViewControllers tree": "\(UIWindow.vcsHierarchyDebugDescription())"]
-        logError(ConditionalError(code: .unexpectedNilValue, info: errorInfo))
+        tracing.logError(ConditionalError(code: .unexpectedNilValue, info: errorInfo))
         
         navController = nil
       }
@@ -41,7 +42,7 @@ open class RootNavigationRouter<InteractorType, ViewControllerType, RouteType: R
       let errorInfo: ErrorInfo = ["message": message,
                                   "RIBs tree": "\(hierarchyDebugDescription)",
                                   "ViewControllers tree": "\(UIWindow.vcsHierarchyDebugDescription())"]
-      logError(ConditionalError(code: .unexpectedNilValue, info: errorInfo))
+      tracing.logError(ConditionalError(code: .unexpectedNilValue, info: errorInfo))
 
       navController = nil
     }
