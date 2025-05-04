@@ -6,10 +6,11 @@
 //
 
 public import class UIKit.UINavigationController
+import struct SwiftyKit.ErrorInfo
 import class UIKit.UIViewController
 import class UIKit.UIWindow
-import struct SwiftyKit.ErrorInfo
 private import CommonErrorsPack
+import class Foundation.DispatchQueue
 
 open class RootNavigationRouter<InteractorType, ViewControllerType, RouteType: RouteProtocol>: ViewableRouter
 <InteractorType, ViewControllerType, NavigationTransition, RouteType>, NavigationRouting {
@@ -81,7 +82,7 @@ open class RootNavigationRouter<InteractorType, ViewControllerType, RouteType: R
       
       navigationController?.push(router.viewControllable.uiviewController, animated: animated) { [weak self] in
         completion?()
-        self?.interactable.routed(to: router)
+//        self?.interactable.routed(to: router) // TODO: - .
       }
       
     case let .pop(kind, animated):
@@ -94,11 +95,10 @@ open class RootNavigationRouter<InteractorType, ViewControllerType, RouteType: R
       navigationController?.view.window?.rootViewController?.dismiss(animated: animated, completion: nil)
       
       /// контроллеры, которые будут удалены из стека, в зависимости от того, до какой глубины происходит pop
-      let droppedControllers: [UIViewController]
-      if toRoot {
-        droppedControllers = navigationController.map { Array($0.viewControllers.dropFirst()) } ?? []
+      let droppedControllers: [UIViewController] = if toRoot {
+        navigationController.map { Array($0.viewControllers.dropFirst()) } ?? []
       } else {
-        droppedControllers = navigationController?.viewControllers.last.map { [$0] } ?? []
+        navigationController?.viewControllers.last.map { [$0] } ?? []
       }
       
       /// связанные с контроллерами для удаления роутеры

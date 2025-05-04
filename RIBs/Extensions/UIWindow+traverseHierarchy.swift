@@ -6,9 +6,9 @@
 //
 
 public import class UIKit.UIWindow
-import UIKit
-import SwiftyKit
 import CommonErrorsPack
+import SwiftyKit
+import UIKit
 
 // https://medium.com/flawless-app-stories/exploring-view-hierarchy-332ea63262e9
 extension UIWindow {

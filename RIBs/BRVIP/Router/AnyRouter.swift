@@ -8,11 +8,11 @@
 import Foundation
 
 private class AbstractAnyRouter<RouteType: RouteProtocol>: Routable {
-  func trigger(_ route: RouteType, completion: @escaping RouteCompletion) {
+  func trigger(_: RouteType, completion _: @escaping RouteCompletion) {
     fatalError("This method is abstract")
   }
   
-  func trigger(_ route: RouteType) {
+  func trigger(_: RouteType) {
     fatalError("This method is abstract")
   }
 }

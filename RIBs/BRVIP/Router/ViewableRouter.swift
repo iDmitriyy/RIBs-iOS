@@ -112,11 +112,11 @@ open class ViewableRouter<InteractorType, ViewControllerType, TransitionType: Ro
     super.init(interactor: interactor)
   }
   
-  open func prepareTransition(for route: RouteType) -> TransitionType {
+  open func prepareTransition(for _: RouteType) -> TransitionType {
     fatalError("Please override the \(#function) method.")
   }
   
-  public func close(animated: Bool, completion: RouteCompletion?) {}
+  public func close(animated _: Bool, completion _: RouteCompletion?) {}
   
   public func openSafariInsideApp(url: URL,
                                   animated: Bool = true,
@@ -143,8 +143,8 @@ open class ViewableRouter<InteractorType, ViewControllerType, TransitionType: Ro
         return
       }
       
-      let transition = self.prepareTransition(for: route)
-      self.perform(transition: transition, completion: completion)
+      let transition = prepareTransition(for: route)
+      perform(transition: transition, completion: completion)
     }
   }
   
@@ -162,7 +162,7 @@ open class ViewableRouter<InteractorType, ViewControllerType, TransitionType: Ro
   
   let disposeBag = DisposeBag()
   
-  func perform(transition: TransitionType, completion: RouteCompletion?) {
+  func perform(transition _: TransitionType, completion _: RouteCompletion?) {
     fatalError("Please override the \(#function) method.")
   }
   

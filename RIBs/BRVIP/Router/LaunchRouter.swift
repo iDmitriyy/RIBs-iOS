@@ -44,7 +44,7 @@ open class LaunchRouter<InteractorType, ViewControllerType, RouteType: RouteProt
   
   // MARK: - Overriden
   
-  open override func prepareTransition(for route: RouteType) -> LaunchTransition {
+  open override func prepareTransition(for _: RouteType) -> LaunchTransition {
     fatalError("Please override the \(#function) method.")
   }
   
@@ -63,7 +63,8 @@ open class LaunchRouter<InteractorType, ViewControllerType, RouteType: RouteProt
       window?.makeKeyAndVisible()
       
       completion?()
-      interactable.routed(to: router)
+    // TODO: - .
+//      interactable.routed(to: router)
     case .reset:
       detachAllChildren()
       window?.rootViewController = viewControllable.uiviewController
@@ -98,7 +99,7 @@ public enum LaunchTransition: RouterTransition {
 }
 
 ///// The application root router base class, that acts as the root of the router tree.
-//open class LaunchRouter<InteractorType, ViewControllerType>: ViewableRouter<InteractorType, ViewControllerType>, LaunchRouting {
+// open class LaunchRouter<InteractorType, ViewControllerType>: ViewableRouter<InteractorType, ViewControllerType>, LaunchRouting {
 //  /// Initializer.
 //  ///
 //  /// - parameter interactor: The corresponding `Interactor` of this `Router`.
@@ -117,4 +118,4 @@ public enum LaunchTransition: RouterTransition {
 //    interactable.activate()
 //    load()
 //  }
-//}
+// }

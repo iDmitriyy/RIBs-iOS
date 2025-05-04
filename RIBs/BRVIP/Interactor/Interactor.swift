@@ -54,6 +54,9 @@ public protocol Interactable: InteractorScope {
   /// - note: This method is internally invoked by the corresponding router. Application code should never explicitly
   ///   invoke this method.
   func deactivate()
+  
+  // TODO: - e.g. when a Deeplink is opended. Revise its usage.
+//  func routed(to router: any Routing)
 }
 
 /// An `Interactor` defines a unit of business logic that corresponds to a router unit.

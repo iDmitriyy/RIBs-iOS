@@ -24,7 +24,7 @@ open class TabBarRouter<InteractorType, ViewControllerType, RouteType: RouteProt
   
   // MARK: - Overriden
   
-  open override func prepareTransition(for route: RouteType) -> TabBarTransition {
+  open override func prepareTransition(for _: RouteType) -> TabBarTransition {
     fatalError("Please override the \(#function) method.")
   }
   
@@ -51,7 +51,7 @@ open class TabBarRouter<InteractorType, ViewControllerType, RouteType: RouteProt
     case .select(let router):
       tabBarController.select(router.viewControllable.uiviewController, completion: { [weak self] in
         completion?()
-        self?.interactable.routed(to: router)
+//        self?.interactable.routed(to: router) // TODO: - .
       })
     case let .present(router, animated):
       super.present(router, animated: animated, completion: completion)
@@ -69,8 +69,8 @@ open class TabBarRouter<InteractorType, ViewControllerType, RouteType: RouteProt
   /// код ниже автоматически детачит все дочерние роутеры при таком кейсе
   public func willSelect(viewController: UIViewController) {
     guard tabBarController.selectedViewController == viewController,
-      let navigationController: UINavigationController = viewController as? UINavigationController,
-      let first: UIViewController = navigationController.viewControllers.first else { return }
+          let navigationController: UINavigationController = viewController as? UINavigationController,
+          let first: UIViewController = navigationController.viewControllers.first else { return }
     findRouter(for: first)?.detachAllChildren()
   }
 }

@@ -12,7 +12,6 @@ public protocol EmbedRouting: ViewableRouting {}
 
 open class EmbedRouter<InteractorType, ViewControllerType, RouteType: RouteProtocol>: ViewableRouter
 <InteractorType, ViewControllerType, EmbedTransition, RouteType>, EmbedRouting {
-  
   // MARK: - Overridden
   
   override func perform(transition: TransitionType, completion: RouteCompletion?) {

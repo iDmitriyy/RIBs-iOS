@@ -63,15 +63,15 @@ extension Routing {
   /// - Parameter viewControllers: контроллеры, на которые держат ссылки искомые роутеры
   func findRouters(for viewControllers: [UIViewController]) -> [any Routing] {
     viewControllers
-      .map({ viewController in
+      .map { viewController in
         findRouterInTree { router in
           if let viewableRouter = router as? any ViewableRouting {
-            return viewableRouter.viewControllable.uiviewController === viewController
+            viewableRouter.viewControllable.uiviewController === viewController
           } else {
-            return false
+            false
           }
         }
-      })
+      }
       .compactMap { $0 }
   }
   

@@ -11,7 +11,7 @@ open class FlowRouter<InteractorType, ViewControllerType, RouteType: RouteProtoc
 <InteractorType, ViewControllerType, FlowTransition, RouteType>, FlowRouting {
   // MARK: - Overriden
 
-  open override func prepareTransition(for route: RouteType) -> FlowTransition {
+  open override func prepareTransition(for _: RouteType) -> FlowTransition {
     fatalError("Please override the \(#function) method.")
   }
 
@@ -19,7 +19,7 @@ open class FlowRouter<InteractorType, ViewControllerType, RouteType: RouteProtoc
     super.init(interactor: interactor, viewController: viewController)
   }
 
-  public override func close(animated: Bool = true, completion: RouteCompletion? = nil) {
+  public override func close(animated _: Bool = true, completion _: RouteCompletion? = nil) {
     DispatchQueue.main.async { [weak self] in
       self?.detachFromParent()
     }

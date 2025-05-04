@@ -43,6 +43,10 @@ public protocol Routing: RouterScope {
   /// The list of children routers of this `Router`.
   var children: [any Routing] { get }
 
+  /// Parent router
+  /// - note: added for RIBs tree traversal.
+  var parent: (any Routing)? { get set }
+  
   /// Loads the `Router`.
   ///
   /// - note: This method is internally used by the framework. Application code should never
@@ -91,6 +95,8 @@ open class Router<InteractorType>: Routing {
 
   /// The list of children `Router`s of this `Router`.
   public final var children: [any Routing] = []
+  
+  public final weak var parent: (any Routing)?
 
   /// The observable that emits values when the router scope reaches its corresponding life-cycle stages.
   ///
@@ -131,10 +137,24 @@ open class Router<InteractorType>: Routing {
   open func didLoad() {
     // No-op
   }
-
+  
+  /// Сигнализирует о начале детача из родительского роутера
+  open func willDetachFromParent() {}
+  
+  /// Сигнализирует о детаче из родительского роутера
+  open func didDetachFromParent() {}
+  
+  /// Сигнализирует о начале детача дочернего роутера
+  /// - Parameter child: Дочерний роутер
+  open func didDetach(child _: any Routing) {}
+  
+  /// Сигнализирует о детаче дочернего роутера
+  /// - Parameter child: Дочерний роутер
+  open func willDetach(child _: any Routing) {}
+  
   // We cannot declare the attach/detach child methods to take in concrete `Router` instances,
   // since during unit testing, we need to use mocked child routers.
-
+  
   /// Attaches the given router as a child.
   ///
   /// - parameter child: The child `Router` to attach.
@@ -153,9 +173,21 @@ open class Router<InteractorType>: Routing {
   ///
   /// - parameter child: The child `Router` to detach.
   public final func detachChild(_ child: any Routing) {
+    willDetach(child: child)
+    child.willDetachFromParent()
+    
     child.interactable.deactivate()
-
     children.removeElementByReference(child)
+    
+    child.parent = nil
+    child.didDetachFromParent()
+    didDetach(child: child)
+  }
+  
+  // MARK: - make it private / internal?
+
+  public final func detachAllChildren() {
+    children.forEach { detachChild($0) }
   }
 
   // MARK: - Internal
@@ -207,12 +239,6 @@ open class Router<InteractorType>: Routing {
 
     for child in root.children {
       iterateSubtree(child, closure: closure)
-    }
-  }
-
-  private func detachAllChildren() {
-    for child in children {
-      detachChild(child)
     }
   }
 

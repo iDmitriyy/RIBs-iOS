@@ -13,7 +13,7 @@ open class ModalRouter<InteractorType, ViewControllerType, RouteType: RouteProto
 
   /// Метод необходимо переопределить при наследовании.
   /// Вызывать super.prepareTransition(for :) не нужно.
-  open override func prepareTransition(for route: RouteType) -> ModalTransition {
+  open override func prepareTransition(for _: RouteType) -> ModalTransition {
     let message = "Please override the \(#function) method. in \(self)."
     #if DEBUG
       fatalError(message)

@@ -22,11 +22,10 @@ extension Router {
        */
       
       if let vc, let child,
-        vc.isBeingDismissed
-          || vc.navigationController?.isBeingDismissed ?? false
-          || vc.isMovingFromParent
-          || vc.navigationController?.isMovingFromParent ?? false {
-        
+         vc.isBeingDismissed
+         || vc.navigationController?.isBeingDismissed ?? false
+         || vc.isMovingFromParent
+         || vc.navigationController?.isMovingFromParent ?? false {
         detachAction?()
         self?.detachChild(child)
       }
