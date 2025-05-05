@@ -257,3 +257,14 @@ open class Router<InteractorType>: Routing {
 //    LeakDetector.instance.expectDeallocate(object: interactable)
   }
 }
+
+internal enum RouterState {
+  // load()
+  // didLoad()
+  
+//  child.interactable.activate()
+//  child.load()
+  
+  // interactable.deactivate()
+  // lifecycleSubject.onCompleted()
+}

@@ -10,7 +10,7 @@ import UIKit
 /// Встраиваемые переиспользуемые экраны
 public protocol EmbedRouting: ViewableRouting {}
 
-open class EmbedRouter<InteractorType, ViewControllerType, RouteType: RouteProtocol>: ViewableRouter
+open class EmbedRouter<InteractorType, ViewControllerType, RouteType: RouteVariantProtocol>: ViewableRouter
 <InteractorType, ViewControllerType, EmbedTransition, RouteType>, EmbedRouting {
   // MARK: - Overridden
   

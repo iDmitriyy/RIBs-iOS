@@ -17,6 +17,8 @@
 import RxSwift
 public import protocol RxSwift.Disposable
 
+// TODO: - rename Workflow to RouteFlow
+
 /// Defines the base class for a sequence of steps that execute a flow through the application RIB tree.
 ///
 /// At each step of a `Workflow` is a pair of value and actionable item. The value can be used to make logic decisions.

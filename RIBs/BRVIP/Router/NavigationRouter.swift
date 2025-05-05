@@ -12,7 +12,7 @@ import class UIKit.UIWindow
 private import CommonErrorsPack
 import class Foundation.DispatchQueue
 
-open class RootNavigationRouter<InteractorType, ViewControllerType, RouteType: RouteProtocol>: ViewableRouter
+open class RootNavigationRouter<InteractorType, ViewControllerType, RouteType: RouteVariantProtocol>: ViewableRouter
 <InteractorType, ViewControllerType, NavigationTransition, RouteType>, NavigationRouting {
   // MARK: - Public
   
@@ -158,7 +158,7 @@ open class RootNavigationRouter<InteractorType, ViewControllerType, RouteType: R
   }
 }
 
-open class NavigationRouter<InteractorType, ViewControllerType, RouteType: RouteProtocol>:
+open class NavigationRouter<InteractorType, ViewControllerType, RouteType: RouteVariantProtocol>:
   RootNavigationRouter<InteractorType, ViewControllerType, RouteType> {
   public override func close(animated: Bool = true, completion: RouteCompletion? = nil) {
     DispatchQueue.main.async { [weak self] in
@@ -167,7 +167,7 @@ open class NavigationRouter<InteractorType, ViewControllerType, RouteType: Route
   }
 }
 
-open class NavigationControllerRouter<InteractorType, ViewControllerType, RouteType: RouteProtocol>:
+open class NavigationControllerRouter<InteractorType, ViewControllerType, RouteType: RouteVariantProtocol>:
   RootNavigationRouter<InteractorType, ViewControllerType, RouteType> {
   /// Be careful – it will replace entire navigation stack.
   public func setInitial(router firstChild: some NavigationRouting, animated: Bool, completion: RouteCompletion?) {

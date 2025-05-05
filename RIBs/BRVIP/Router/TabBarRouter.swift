@@ -10,7 +10,7 @@ import RxSwift
 public import class UIKit.UITabBarController
 import UIKit
 
-open class TabBarRouter<InteractorType, ViewControllerType, RouteType: RouteProtocol>: ViewableRouter
+open class TabBarRouter<InteractorType, ViewControllerType, RouteType: RouteVariantProtocol>: ViewableRouter
 <InteractorType, ViewControllerType, TabBarTransition, RouteType>, TabBarRouting {
   // MARK: - Public
   

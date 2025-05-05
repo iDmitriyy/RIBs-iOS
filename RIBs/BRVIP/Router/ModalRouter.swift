@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class ModalRouter<InteractorType, ViewControllerType, RouteType: RouteProtocol>: ViewableRouter
+open class ModalRouter<InteractorType, ViewControllerType, RouteType: RouteVariantProtocol>: ViewableRouter
 <InteractorType, ViewControllerType, ModalTransition, RouteType>, ModalRouting {
   // MARK: - Overriden
 

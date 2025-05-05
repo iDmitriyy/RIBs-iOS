@@ -26,7 +26,7 @@ public import class UIKit.UIWindow
 }
 
 /// Тип роутера для старта приложения. Предполагается использование одного экземпляра такого типа на всё приложение
-open class LaunchRouter<InteractorType, ViewControllerType, RouteType: RouteProtocol>: ViewableRouter
+open class LaunchRouter<InteractorType, ViewControllerType, RouteType: RouteVariantProtocol>: ViewableRouter
 <InteractorType, ViewControllerType, LaunchTransition, RouteType> {
   private var window: UIWindow?
   

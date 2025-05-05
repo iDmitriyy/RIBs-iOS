@@ -69,17 +69,17 @@ protocol TransitionPerformer: AnyObject {
 
 // MARK: - RouteProtocol
 
-public protocol RouteProtocol {}
+public protocol RouteVariantProtocol {}
 
 // MARK: - Routable
 
 @MainActor
 public protocol Routable: AnyObject {
-  associatedtype RouteType: RouteProtocol
+  associatedtype RouteVariant: RouteVariantProtocol
   
-  func trigger(_ route: RouteType, completion: @escaping RouteCompletion)
+  func trigger(_ route: RouteVariant, completion: @escaping RouteCompletion)
   
-  func trigger(_ route: RouteType)
+  func trigger(_ route: RouteVariant)
 }
 
 /// The base class of all routers that owns view controllers, representing application states.
@@ -87,7 +87,7 @@ public protocol Routable: AnyObject {
 /// A `Router` acts on inputs from its corresponding interactor, to manipulate application state and view state,
 /// forming a tree of routers that drives the tree of view controllers. Router drives the lifecycle of its owned
 /// interactor. `Router`s should always use helper builders to instantiate children `Router`s.
-open class ViewableRouter<InteractorType, ViewControllerType, TransitionType: RouterTransition, RouteType: RouteProtocol>: Router
+open class ViewableRouter<InteractorType, ViewControllerType, TransitionType: RouterTransition, RouteType: RouteVariantProtocol>: Router
 <InteractorType>, ViewableRouting, TransitionPerformer, Routable {
   // MARK: - Public
   

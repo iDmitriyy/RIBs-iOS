@@ -7,45 +7,45 @@
 
 import Foundation
 
-private class AbstractAnyRouter<RouteType: RouteProtocol>: Routable {
-  func trigger(_: RouteType, completion _: @escaping RouteCompletion) {
+private class AbstractAnyRouter<RouteVariant: RouteVariantProtocol>: Routable {
+  func trigger(_: RouteVariant, completion _: @escaping RouteCompletion) {
     fatalError("This method is abstract")
   }
   
-  func trigger(_: RouteType) {
+  func trigger(_: RouteVariant) {
     fatalError("This method is abstract")
   }
 }
 
-private class AnyRouterWrapper<Base: Routable>: AbstractAnyRouter<Base.RouteType> {
+private class AnyRouterWrapper<Base: Routable>: AbstractAnyRouter<Base.RouteVariant> {
   private let _base: Base
   
   init(_ base: Base) {
     _base = base
   }
   
-  override func trigger(_ route: RouteType, completion: @escaping RouteCompletion) {
+  override func trigger(_ route: RouteVariant, completion: @escaping RouteCompletion) {
     _base.trigger(route, completion: completion)
   }
   
-  override func trigger(_ route: RouteType) {
+  override func trigger(_ route: RouteVariant) {
     _base.trigger(route)
   }
 }
 
 /// Type erasure-обертка для использования инстансов дженерик-протокола Routable
-final class AnyRouter<RouteType: RouteProtocol>: Routable {
-  private let _box: AbstractAnyRouter<RouteType>
+final class AnyRouter<RouteVariant: RouteVariantProtocol>: Routable {
+  private let _box: AbstractAnyRouter<RouteVariant>
   
-  init<RoutableType: Routable>(_ routable: RoutableType) where RoutableType.RouteType == RouteType {
+  init<RoutableType: Routable>(_ routable: RoutableType) where RoutableType.RouteVariant == RouteVariant {
     _box = AnyRouterWrapper(routable)
   }
   
-  func trigger(_ route: RouteType, completion: @escaping RouteCompletion) {
+  func trigger(_ route: RouteVariant, completion: @escaping RouteCompletion) {
     _box.trigger(route, completion: completion)
   }
   
-  func trigger(_ route: RouteType) {
+  func trigger(_ route: RouteVariant) {
     _box.trigger(route)
   }
 }

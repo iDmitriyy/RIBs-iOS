@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class FlowRouter<InteractorType, ViewControllerType, RouteType: RouteProtocol>: ViewableRouter
+open class FlowRouter<InteractorType, ViewControllerType, RouteType: RouteVariantProtocol>: ViewableRouter
 <InteractorType, ViewControllerType, FlowTransition, RouteType>, FlowRouting {
   // MARK: - Overriden
 
