@@ -11,11 +11,11 @@ import CommonErrorsPack
 /// объекта.
 /// Идея возникла, когда понадобилось хранить сильную ссылку на класс, занимающийся сбором статистики экрана.
 public final class RetainBag {
-  private var retainedObjects: [AnyObject] = []
+  private var retainedObjects: [any AnyObject] = []
   
   internal init() {}
   // TODO: - file: StaticString = #file, line: UInt = #line
-  public func add(object: some AnyObject) {
+  public func add(object: any AnyObject) {
     guard !retainedObjects.contains(where: { $0 === object }) else {
       tracing.assertionFailure(error: ConditionalError(code: .duplicatedObject, info: ["object": "\(object)"]))
       return

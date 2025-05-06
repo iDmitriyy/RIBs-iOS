@@ -8,6 +8,7 @@ let package = Package(
   ],
   products: [
     .library(name: "RIBs", targets: ["RIBs"]),
+    .library(name: "Example", targets: ["Example"]),
   ],
   dependencies: [
     .package(url: "https://github.com/ReactiveX/RxSwift", .upToNextMinor(from: "6.5.0")),
@@ -16,6 +17,7 @@ let package = Package(
     .package(url: "https://github.com/mattgallagher/CwlPreconditionTesting.git", .upToNextMinor(from: "2.2.2")), // for testTarget only
   ],
   targets: [
+    .target(name: "Example", dependencies: ["RIBs"], path: "Example"),
     .target(name: "RIBs",
             dependencies: [.product(name: "RxRelay", package: "rxswift"),
                            .product(name: "RxSwift", package: "rxswift"),

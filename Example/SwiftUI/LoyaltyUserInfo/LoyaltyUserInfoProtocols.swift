@@ -7,9 +7,31 @@
 
 import Observation
 
+protocol BindableSUIView {
+  
+}
+
+struct LoyaltyCardFormViewOutput {
+  
+}
+
+struct LoyaltyCardFormPresenterOutput {
+  
+}
+
+struct LoyaltyCardFormInteractorOutput {
+  
+}
+
+struct LoyaltyCardFormDataModel {
+  var firstName: String
+  var lastName: String
+  var isSubscriptionConsent: Bool
+}
+
 @MainActor @Observable
 final class TestScreenDataModel {
-  var nameText: String = "" {
+  var firstName: String = "" {
     didSet {
       print("nameText: \(nameText)")
       if nameText.count > 3 {
@@ -17,6 +39,10 @@ final class TestScreenDataModel {
       }
     }
   }
+  
+  var lastName: String = ""
+  
+  var isSubscriptionConsent: Bool
   
   init() {
     Task {
